@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green House Gas Emission Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1>🌍 GHG Emission Management System</h1>
+                <p>Batangas State University-Lipa Campus</p>
+            </div>
+            <div class="header-actions">
+                <button id="export-csv" class="icon-btn" data-tooltip="Export as CSV"><i class="fas fa-download"></i><span class="icon-label">Export CSV</span></button>
+                <button id="export-json" class="icon-btn" data-tooltip="Export as JSON"><i class="fas fa-file-export"></i><span class="icon-label">Export JSON</span></button>
+                <button id="clear-data" class="icon-btn icon-btn-danger" data-tooltip="Clear Data"><i class="fas fa-trash-alt"></i><span class="icon-label">Clear</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="single-page-layout">
+        <br><br>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="main-section">
+            <h2>Executive Dashboard</h2>
+            <div class="mini-filters" aria-label="Dashboard filters">
+                <div class="mini-filter-item">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
+                    <select id="scope-filter" class="mini-select">
+                        <option value="">All Scopes</option>
+                        <option value="Scope 1">Scope 1</option>
+                        <option value="Scope 2">Scope 2</option>
+                        <option value="Scope 3">Scope 3</option>
+                    </select>
+                </div>
+                <div class="mini-filter-item">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    <select id="year-filter" class="mini-select">
+                        <option value="">All Years</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+                <div class="mini-filter-item">
+                    <i class="fas fa-university" aria-hidden="true"></i>
+                    <select id="campus-filter" class="mini-select">
+                        <option value="">All Campuses</option>
+                        <option value="CSD">CSD</option>
+                        <option value="Alangilan">Alangilan</option>
+                        <option value="Lipa">Lipa</option>
+                        <option value="Balayan">Balayan</option>
+                        <option value="Malvar">Malvar</option>
+                        <option value="Lemery">Lemery</option>
+                        <option value="Lobo">Lobo</option>
+                        <option value="Nasugbu">Nasugbu</option>
+                        <option value="Mabini">Mabini</option>
+                        <option value="Pablo Borbon">Pablo Borbon</option>
+                        <option value="Rosario">Rosario</option>
+                        <option value="San Juan">San Juan</option>
+                    </select>
+                </div>
+                <div class="mini-filter-actions">
+                    <button id="apply-filters-btn" class="icon-btn icon-btn-small" title="Apply filters"><i class="fas fa-check"></i></button>
+                    <button id="reset-filters-btn" class="icon-btn icon-btn-small" title="Reset filters"><i class="fas fa-undo"></i></button>
+                </div>
+            </div>
+            <div class="kpi-grid">
+                <!-- Total Emissions Card -->
+                <div class="kpi-card kpi-card-primary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">Total Emissions</div>
+                        <div class="kpi-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-main-value" id="total-emissions">0.00</div>
+                    <div class="kpi-subunit">kg CO₂e</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-plug"></i> Electricity:</span>
+                            <span class="detail-value" id="electricity-value">0 kWh</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-gas-pump"></i> Fuel:</span>
+                            <span class="detail-value" id="fuel-value">0 L</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-fire"></i> LPG:</span>
+                            <span class="detail-value" id="lpg-value">0 kg</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-tint"></i> Water:</span>
+                            <span class="detail-value" id="water-value">0 m³</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-droplet"></i> Treated Water:</span>
+                            <span class="detail-value" id="treated-water-value">0 m³</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-trash"></i> Waste:</span>
+                            <span class="detail-value" id="waste-value">0 kg</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-plane"></i> Flight:</span>
+                            <span class="detail-value" id="flight-value">0 trips</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-hotel"></i> Accommodation:</span>
+                            <span class="detail-value" id="accommodation-value">0 stays</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-utensils"></i> Food:</span>
+                            <span class="detail-value" id="food-value">0 kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metric Tons Card -->
+                <div class="kpi-card kpi-card-secondary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">Metric Tons</div>
+                        <div class="kpi-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-main-value" id="metric-tons">0.000</div>
+                    <div class="kpi-subunit">t CO₂e</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Total Records:</span>
+                            <span class="detail-value" id="data-points">0</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Avg/Record:</span>
+                            <span class="detail-value" id="avg-per-record">0.00 kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tree Offset Card -->
+                <div class="kpi-card kpi-card-tertiary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">Tree Offset</div>
+                        <div class="kpi-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-main-value" id="trees-needed">0</div>
+                    <div class="kpi-subunit">trees needed</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label">CO₂ per tree/year:</span>
+                            <span class="detail-value">21 kg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <h3 data-tooltip="Shows how emissions have changed over time (2020-2026). Use this to see if the university is reducing or increasing its environmental impact">Trend Analysis (kg)</h3>
+                    <canvas id="dashboard-trend"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 data-tooltip="Breaks down emissions by source type: Electricity, Fuel, LPG, Water, Waste, Travel, and Food. Helps identify which areas use the most energy">Consumption by Category</h3>
+                    <canvas id="dashboard-industry"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 data-tooltip="Pie chart showing the percentage each source contributes to total emissions. Larger slices = bigger environmental impact">Category Composition</h3>
+                    <canvas id="dashboard-gas-pie"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 40px;">
+                <h3 data-tooltip="Year-by-year comparison showing total emissions and whether they increased or decreased compared to previous years">Period Comparison</h3>
+                <table id="period-comparison-table" class="summary-table">
+                    <thead>
+                        <tr>
+                            <th data-tooltip="The year being reported">Period</th>
+                            <th data-tooltip="Total greenhouse gas emissions for that year in kilograms of CO₂ equivalent">Total Consumption (kg)</th>
+                            <th data-tooltip="Percentage change from the previous year. Positive = increased emissions, Negative = decreased emissions">YoY Change (%)</th>
+                            <th data-tooltip="Long-term trend showing average growth or decline in emissions over time">Growth Rate (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Data Input Section -->
+        <section id="data-input" class="main-section">
+            <h2> Data Input & Management</h2>
+            
+            <div class="input-section">
+                <div class="input-controls">
+                    <h3>Quick Actions</h3>
+                    <button id="load-sample" class="btn-primary">📊 Load Sample Data</button>
+                </div>
+
+                <div class="manual-input-section">
+                    <h3>Manual Data Entry</h3>
+                    <form id="manual-input" class="data-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="year">Year:</label>
+                                <input type="number" id="year" min="2000" max="2100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Month (Optional):</label>
+                                <input type="number" id="month" min="1" max="12">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emission">Consumption (kg):</label>
+                                <input type="number" id="emission" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select id="category" required>
+                                    <option value="">-- Select Category --</option>
+                                    <option value="Water consumption">Water consumption</option>
+                                    <option value="Treated water">Treated water</option>
+                                    <option value="Solid waste segregated">Solid waste segregated</option>
+                                    <option value="Solid waste unsegregated">Solid waste unsegregated</option>
+                                    <option value="Food consumption">Food consumption</option>
+                                    <option value="Flight emission">Flight emission</option>
+                                    <option value="Accommodation emission">Accommodation emission</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="source">Source/Location:</label>
+                                <input type="text" id="source" placeholder="e.g., Main Campus, Cafeteria">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">✅ Add Data Entry</button>
+                    </form>
+                    <div id="validation-message" class="validation-msg"></div>
+                </div>
+            </div>
+
+            <div class="data-list-section">
+                <h3>Data Entries (<span id="entry-count">0</span>)</h3>
+                <div class="data-filters">
+                    <input type="text" id="filter-category" placeholder="Filter by Category..." class="filter-input">
+                    <input type="number" id="filter-year" placeholder="Filter by Year..." class="filter-input">
+                    <button id="apply-filters" class="btn-secondary">🔍 Apply Filters</button>
+                </div>
+                <ul id="data-list" class="data-list"></ul>
+            </div>
+        </section>
+
+        <!-- General Analytics Section -->
+        <section id="general-analytics" class="main-section">
+            <h2>General Analytics</h2>
+
+            <div class="analytics-summary">
+                <div class="summary-item">
+                    <div class="summary-label">Top Category (latest)</div>
+                    <div class="summary-value" id="analytics-top-category">--</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Average Monthly (latest year)</div>
+                    <div class="summary-value" id="analytics-avg-monthly">-- kg</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Average per Category</div>
+                    <div class="summary-value" id="analytics-avg-per-category">-- kg</div>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="chart-container">
+                    <h3>Top Categories (by total consumption)</h3>
+                    <canvas id="analytics-top-categories"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Monthly Average (latest year)</h3>
+                    <canvas id="analytics-monthly-average"></canvas>
+                </div>
+                <div class="chart-container" style="grid-column: 1 / -1;">
+                    <h3>Category Time Series</h3>
+                    <label for="analytics-category-select">Category: </label>
+                    <select id="analytics-category-select"></select>
+                    <canvas id="analytics-category-trend"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forecasting Section -->
+        <section id="forecasting" class="main-section">
+            <h2> Forecasting </h2>
+            
+            <div class="forecast-controls">
+                <div class="control-group">
+                    <label for="forecast-years">Forecast Horizon (years):</label>
+                    <select id="forecast-years">
+                        <option value="3">3 Years</option>
+                        <option value="5" selected>5 Years</option>
+                        <option value="10">10 Years</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="forecast-model">Model Type:</label>
+                    <select id="forecast-model">
+                        <option value="lstm">LSTM (Advanced)</option>
+                        <option value="arima" selected>ARIMA (Standard)</option>
+                        <option value="linear">Linear Regression</option>
+                    </select>
+                </div>
+                <button id="train-forecast" class="btn-primary"> Train & Forecast</button>
+            </div>
+
+            <div id="forecast-status" class="status-message"></div>
+
+            <div class="forecast-results">
+                <div class="chart-container">
+                    <h3>Baseline Forecast</h3>
+                    <canvas id="forecast-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Forecast Scenarios</h3>
+                    <canvas id="scenario-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="forecast-details">
+                <h3>Forecast Results & Confidence Intervals</h3>
+                <table id="forecast-table" class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Baseline (kg)</th>
+                            <th>95% Confidence Lower</th>
+                            <th>95% Confidence Upper</th>
+                            <th>Optimistic</th>
+                            <th>Pessimistic</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="forecast-metrics">
+                <h3>Model Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">R² Score</div>
+                        <div class="metric-value" id="r2-score">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">RMSE</div>
+                        <div class="metric-value" id="rmse">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">MAE</div>
+                        <div class="metric-value" id="mae">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Trend Direction</div>
+                        <div class="metric-value" id="trend-direction">--</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>Green House Gas Emission Management System • MLOps-Compliant Analysis & Forecasting • Data-Driven Sustainability</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-statistics"></script>
+    <script src="emissions-data.js"></script>
+    <script src="data.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

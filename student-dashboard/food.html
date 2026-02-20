@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Tracking - Student Personal Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1> Student Personal Dashboard</h1>
+                <p>Batangas State University-Lipa Campus</p>
+            </div>
+            <div class="header-actions">
+                <button id="export-food" class="icon-btn" data-tooltip="Export Food Data"><i class="fas fa-download"></i><span class="icon-label">Export</span></button>
+                <button id="clear-food-data" class="icon-btn icon-btn-danger" data-tooltip="Clear Food Data"><i class="fas fa-trash-alt"></i><span class="icon-label">Clear</span></button>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="food.html" class="nav-link active"><i class="fas fa-utensils"></i> Food Tracking</a>
+            <a href="transport.html" class="nav-link"><i class="fas fa-route"></i> Transport Tracking</a>
+        </nav>
+    </header>
+
+    <main class="single-page-layout">
+        <!-- Food Consumption Entry -->
+        <section id="food-entry" class="main-section">
+            <h2>Food Consumption Tracking</h2>
+            <div class="input-section">
+                <div class="manual-input-section">
+                    <h3>Log Food Intake</h3>
+                    <form id="food-input-form" class="data-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="food-date">Date:</label>
+                                <input type="date" id="food-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="meal-type">Meal Type:</label>
+                                <select id="meal-type" required>
+                                    <option value="">-- Select Meal --</option>
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Lunch">Lunch</option>
+                                    <option value="Dinner">Dinner</option>
+                                    <option value="Snack">Snack</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="food-item">Food Item:</label>
+                                <input type="text" id="food-item" placeholder="e.g., Rice, Chicken, Apple" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="food-quantity">Quantity (grams):</label>
+                                <input type="number" id="food-quantity" min="1" step="1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="food-calories">Calories:</label>
+                                <input type="number" id="food-calories" min="0" step="1" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">🍽️ Add Food Entry</button>
+                    </form>
+                    <div id="food-validation-message" class="validation-msg"></div>
+                </div>
+            </div>
+
+            <div class="data-list-section">
+                <h3>Recent Food Entries (<span id="food-entry-count">0</span>)</h3>
+                <div class="data-filters">
+                    <input type="date" id="food-filter-date" class="filter-input">
+                    <select id="food-filter-meal" class="filter-input">
+                        <option value="">All Meals</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Snack">Snack</option>
+                    </select>
+                    <button id="food-apply-filters" class="btn-secondary">🔍 Filter</button>
+                </div>
+                <ul id="food-data-list" class="data-list"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>Student Personal Dashboard • Food Tracking • Batangas State University-Lipa Campus</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="food.js"></script>
+</body>
+</html>
