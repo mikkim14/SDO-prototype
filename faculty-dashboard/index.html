@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Personal Dashboard - Batangas State University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../student-dashboard/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1>Faculty Personal Dashboard</h1>
+                <p>Batangas State University-Lipa Campus</p>
+            </div>
+            <div class="header-actions">
+                <button id="export-personal" class="icon-btn" data-tooltip="Export Personal Data"><i class="fas fa-download"></i><span class="icon-label">Export</span></button>
+                <button id="clear-personal-data" class="icon-btn icon-btn-danger" data-tooltip="Clear All Data"><i class="fas fa-trash-alt"></i><span class="icon-label">Clear</span></button>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="food.html" class="nav-link"><i class="fas fa-utensils"></i> Food Tracking</a>
+            <a href="transport.html" class="nav-link"><i class="fas fa-route"></i> Transport Tracking</a>
+        </nav>
+    </header>
+
+    <main class="single-page-layout">
+        <!-- Personal Dashboard Overview (dashboard-only page) -->
+        <section id="personal-dashboard" class="main-section">
+            <h2>Personal Dashboard Overview</h2>
+            <div id="dashboard-validation-message" class="validation-msg"></div>
+            <div class="date-selector">
+                <label for="dashboard-date">Select Date:</label>
+                <input type="date" id="dashboard-date" value="">
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card kpi-card-primary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">Daily Food Intake</div>
+                        <div class="kpi-icon"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="kpi-main-value" id="daily-calories">0</div>
+                    <div class="kpi-subunit">calories</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-weight"></i> Weight:</span>
+                            <span class="detail-value" id="daily-weight">0 g</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-list"></i> Items:</span>
+                            <span class="detail-value" id="daily-items">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-card-secondary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">Daily Transport</div>
+                        <div class="kpi-icon"><i class="fas fa-route"></i></div>
+                    </div>
+                    <div class="kpi-main-value" id="daily-distance">0.0</div>
+                    <div class="kpi-subunit">km</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-clock"></i> Time:</span>
+                            <span class="detail-value" id="daily-time">0 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-cloud"></i> CO₂:</span>
+                            <span class="detail-value" id="daily-emissions">0.00 kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-card-tertiary">
+                    <div class="kpi-header">
+                        <div class="kpi-label">This Week</div>
+                        <div class="kpi-icon"><i class="fas fa-calendar-week"></i></div>
+                    </div>
+                    <div class="kpi-main-value" id="weekly-avg">0</div>
+                    <div class="kpi-subunit">avg calories/day</div>
+                    <div class="kpi-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Days logged:</span>
+                            <span class="detail-value" id="weekly-days">0/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <h3>Daily Food Intake Trend</h3>
+                    <canvas id="food-trend-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Transport Modes Used</h3>
+                    <canvas id="transport-pie-chart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>Faculty Personal Dashboard • Track Your Daily Food & Transport • Batangas State University-Lipa Campus</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

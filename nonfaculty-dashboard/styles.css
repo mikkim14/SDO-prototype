@@ -1,0 +1,16 @@
+/* Styles for non-faculty staff dashboard */
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    background: #2d3748;
+    color: #fff;
+    padding: 1rem;
+    margin: 0 0 1rem 0;
+}
+#dashboard-content {
+    padding: 2rem;
+}
